@@ -23,7 +23,7 @@
 }
 
 .auth-logo {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -322,11 +322,12 @@
   height: 52px;
   border-radius: 50%;
   background: var(--color-success-bg);
-  border: 1px solid rgba(61, 190, 122, 0.3);
+  border: 1px solid rgba(22, 163, 74, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
+  color: var(--color-success);
 }
 
 .success-state h2 {
@@ -410,8 +411,8 @@
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--color-accent);
-  background: rgba(79, 110, 247, 0.1);
-  border: 1px solid rgba(79, 110, 247, 0.2);
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.2);
   padding: 0.15rem 0.5rem;
   border-radius: 4px;
 }
@@ -605,9 +606,9 @@
 }
 
 .badge-success {
-  background: rgba(61, 190, 122, 0.12);
-  color: #3dbe7a;
-  border: 1px solid rgba(61, 190, 122, 0.2);
+  background: rgba(22, 163, 74, 0.1);
+  color: #16a34a;
+  border: 1px solid rgba(22, 163, 74, 0.2);
 }
 
 .badge-muted {

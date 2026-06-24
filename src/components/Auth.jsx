@@ -65,7 +65,7 @@ export default function Auth({ onAuthSuccess }) {
     <div className="page-wrapper">
       <div className="auth-card">
         <div className="auth-header">
-          <span className="auth-logo">Upsilon</span>
+          <span className="auth-logo"><span style={{ color: 'var(--color-accent)' }}>UP</span>SILON</span>
           <div className="auth-tabs">
             <button
               id="tab-login"

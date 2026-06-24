@@ -29,7 +29,7 @@ export default function AdminLogin({ onAdminAuth }) {
     <div className="page-wrapper">
       <div className="auth-card">
         <div className="auth-header">
-          <span className="auth-logo">Upsilon</span>
+          <span className="auth-logo"><span style={{ color: 'var(--color-accent)' }}>UP</span>SILON</span>
           <h1 className="auth-title">Admin access</h1>
           <p className="auth-subtitle">This area is restricted to administrators only.</p>
         </div>

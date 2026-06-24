@@ -47,7 +47,7 @@ export default function AdminDashboard({ token, onLogout }) {
       {/* Header */}
       <div className="admin-topbar">
         <div className="admin-topbar-left">
-          <span className="auth-logo" style={{ marginBottom: 0 }}>Upsilon</span>
+          <span className="auth-logo" style={{ marginBottom: 0 }}><span style={{ color: 'var(--color-accent)' }}>UP</span>SILON</span>
           <span className="admin-badge">Admin</span>
         </div>
         <div className="admin-topbar-right">
@@ -108,6 +108,8 @@ export default function AdminDashboard({ token, onLogout }) {
                     <th>#</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Company</th>
+                    <th>URL</th>
                     <th>Signed up</th>
                     <th>Waitlist</th>
                     <th>Submitted at</th>
@@ -119,6 +121,12 @@ export default function AdminDashboard({ token, onLogout }) {
                       <td className="cell-id">{user.id}</td>
                       <td className="cell-name">{user.name}</td>
                       <td className="cell-email">{user.email}</td>
+                      <td className="cell-email">{user.company_name || <span style={{color:'var(--color-text-muted)'}}>—</span>}</td>
+                      <td className="cell-email">
+                        {user.company_url
+                          ? <a href={user.company_url} target="_blank" rel="noreferrer" style={{color:'var(--color-accent)',textDecoration:'none'}}>{user.company_url.replace(/^https?:\/\//, '')}</a>
+                          : <span style={{color:'var(--color-text-muted)'}}>—</span>}
+                      </td>
                       <td className="cell-date">{formatDate(user.created_at)}</td>
                       <td>
                         {user.on_waitlist ? (
