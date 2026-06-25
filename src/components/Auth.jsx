@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const TABS = { LOGIN: 'login', SIGNUP: 'signup' };
 
@@ -11,6 +11,67 @@ export default function Auth({ onAuthSuccess }) {
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   // Signup form state
   const [signupData, setSignupData] = useState({ name: '', email: '', password: '' });
+
+  const googleBtnRef = useRef(null);
+
+  const handleGoogleCredentialResponse = async (response) => {
+    setError('');
+    setLoading(true);
+    try {
+      const res = await fetch('/api/google-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential: response.credential }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Google sign-in failed.');
+      onAuthSuccess(data.token, data.user);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // Read Client ID from environment variable
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+    const initGoogleSignIn = () => {
+      if (window.google?.accounts?.id && clientId) {
+        window.google.accounts.id.initialize({
+          client_id: clientId,
+          callback: handleGoogleCredentialResponse,
+        });
+
+        if (googleBtnRef.current) {
+          window.google.accounts.id.renderButton(googleBtnRef.current, {
+            theme: 'outline',
+            size: 'large',
+            width: googleBtnRef.current.parentElement?.offsetWidth || 340,
+            text: 'continue_with',
+            shape: 'rectangular',
+          });
+        }
+      }
+    };
+
+    let interval;
+    if (!window.google?.accounts?.id) {
+      interval = setInterval(() => {
+        if (window.google?.accounts?.id) {
+          initGoogleSignIn();
+          clearInterval(interval);
+        }
+      }, 500);
+    } else {
+      initGoogleSignIn();
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [tab]);
 
   const handleTabChange = (newTab) => {
     setTab(newTab);
@@ -177,6 +238,22 @@ export default function Auth({ onAuthSuccess }) {
             </button>
           </form>
         )}
+
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          textAlign: 'center',
+          margin: '1.5rem 0',
+          color: '#8c8c8c'
+        }}>
+          <hr style={{ flex: 1, border: 'none', borderTop: '1px solid #e0e0e0', margin: '0 10px' }} />
+          <span style={{ fontSize: '0.9rem' }}>or</span>
+          <hr style={{ flex: 1, border: 'none', borderTop: '1px solid #e0e0e0', margin: '0 10px' }} />
+        </div>
+        <div 
+          ref={googleBtnRef} 
+          style={{ width: '100%', display: 'flex', justifyContent: 'center' }} 
+        />
       </div>
       <p className="footer-note">Upsilon &copy; {new Date().getFullYear()}</p>
     </div>

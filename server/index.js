@@ -6,11 +6,27 @@ import pkg from 'pg';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import { OAuth2Client } from 'google-auth-library';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.join(__dirname, '.env') });
+
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+async function verifyGoogleToken(token) {
+  try {
+    const ticket = await googleClient.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    return ticket.getPayload();
+  } catch (error) {
+    console.error('Error verifying Google token:', error);
+    return null;
+  }
+}
 
 const { Pool } = pkg;
 const app = express();
@@ -27,8 +43,9 @@ app.use(express.json());
 
 // --- Init DB Tables ---
 async function initDB() {
-  const client = await pool.connect();
+  let client;
   try {
+    client = await pool.connect();
     await client.query(`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
@@ -53,11 +70,15 @@ async function initDB() {
     // Add columns if upgrading from older schema
     await client.query(`ALTER TABLE waitlist ADD COLUMN IF NOT EXISTS company_name TEXT;`);
     await client.query(`ALTER TABLE waitlist ADD COLUMN IF NOT EXISTS company_url TEXT;`);
+    
+    // Support Google Sign-in / Social Login
+    await client.query(`ALTER TABLE users ALTER COLUMN password_hash DROP NOT NULL;`);
+    await client.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS google_id TEXT UNIQUE;`);
     console.log('✅ Database tables ready.');
   } catch (err) {
     console.error('❌ DB init error:', err.message);
   } finally {
-    client.release();
+    if (client) client.release();
   }
 }
 
@@ -160,6 +181,64 @@ app.post('/api/login', async (req, res) => {
     res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
   } catch (err) {
     console.error('Login error:', err);
+    res.status(500).json({ error: 'Internal server error.' });
+  }
+});
+
+// POST /api/google-login
+app.post('/api/google-login', async (req, res) => {
+  const { credential } = req.body;
+
+  if (!credential) {
+    return res.status(400).json({ error: 'Google credential token is required.' });
+  }
+
+  if (!process.env.GOOGLE_CLIENT_ID) {
+    console.error('GOOGLE_CLIENT_ID environment variable is missing.');
+    return res.status(500).json({ error: 'Google login is not configured on the server.' });
+  }
+
+  try {
+    const googleUser = await verifyGoogleToken(credential);
+    if (!googleUser) {
+      return res.status(400).json({ error: 'Invalid Google credential token.' });
+    }
+
+    const { sub: googleId, email, name } = googleUser;
+
+    // Check if user exists by google_id
+    let result = await pool.query('SELECT * FROM users WHERE google_id = $1', [googleId]);
+    let user = null;
+
+    if (result.rows.length > 0) {
+      user = result.rows[0];
+    } else {
+      // Check if user exists by email
+      const emailResult = await pool.query('SELECT * FROM users WHERE email = $1', [email.toLowerCase()]);
+      if (emailResult.rows.length > 0) {
+        user = emailResult.rows[0];
+        // Link google_id
+        await pool.query('UPDATE users SET google_id = $1 WHERE id = $2', [googleId, user.id]);
+        user.google_id = googleId;
+      } else {
+        // Create new user with null password
+        const insertResult = await pool.query(
+          'INSERT INTO users (name, email, password_hash, google_id) VALUES ($1, $2, null, $3) RETURNING id, name, email',
+          [name, email.toLowerCase(), googleId]
+        );
+        user = insertResult.rows[0];
+      }
+    }
+
+    const token = jwt.sign(
+      { id: user.id, name: user.name, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
+  } catch (err) {
+    console.error('Google login error:', err);
     res.status(500).json({ error: 'Internal server error.' });
   }
 });
