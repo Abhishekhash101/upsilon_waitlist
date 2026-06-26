@@ -158,6 +158,23 @@ export default function Auth({ onAuthSuccess }) {
 
         {error && <div className="alert alert-error" style={{ marginBottom: '1.2rem' }}>{error}</div>}
 
+        <div 
+          ref={googleBtnRef} 
+          style={{ width: '100%', display: 'flex', justifyContent: 'center', marginBottom: '0' }} 
+        />
+
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          textAlign: 'center',
+          margin: '1.5rem 0',
+          color: '#8c8c8c'
+        }}>
+          <hr style={{ flex: 1, border: 'none', borderTop: '1px solid #e0e0e0', margin: '0 10px' }} />
+          <span style={{ fontSize: '0.9rem' }}>or</span>
+          <hr style={{ flex: 1, border: 'none', borderTop: '1px solid #e0e0e0', margin: '0 10px' }} />
+        </div>
+
         {tab === TABS.LOGIN ? (
           <form className="form" onSubmit={handleLogin}>
             <div className="form-field">
@@ -238,22 +255,6 @@ export default function Auth({ onAuthSuccess }) {
             </button>
           </form>
         )}
-
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          textAlign: 'center',
-          margin: '1.5rem 0',
-          color: '#8c8c8c'
-        }}>
-          <hr style={{ flex: 1, border: 'none', borderTop: '1px solid #e0e0e0', margin: '0 10px' }} />
-          <span style={{ fontSize: '0.9rem' }}>or</span>
-          <hr style={{ flex: 1, border: 'none', borderTop: '1px solid #e0e0e0', margin: '0 10px' }} />
-        </div>
-        <div 
-          ref={googleBtnRef} 
-          style={{ width: '100%', display: 'flex', justifyContent: 'center' }} 
-        />
       </div>
       <p className="footer-note">Upsilon &copy; {new Date().getFullYear()}</p>
     </div>
