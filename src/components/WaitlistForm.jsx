@@ -218,13 +218,13 @@ export default function WaitlistForm({ user, token, onLogout }) {
                 </div>
 
                 <div className="form-field">
-                  <label className="form-label" htmlFor="waitlist-company-url">Company URL</label>
+                  <label className="form-label" htmlFor="waitlist-company-url">Company URL / LinkedIn URL</label>
                   <input
                     id="waitlist-company-url"
                     type="url"
                     name="companyUrl"
                     className="form-input"
-                    placeholder="https://acme.com"
+                    placeholder="https://acme.com or https://linkedin.com/company/..."
                     value={formData.companyUrl}
                     onChange={handleChange}
                     required
