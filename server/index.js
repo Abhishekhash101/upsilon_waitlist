@@ -70,6 +70,7 @@ async function initDB() {
     // Add columns if upgrading from older schema
     await client.query(`ALTER TABLE waitlist ADD COLUMN IF NOT EXISTS company_name TEXT;`);
     await client.query(`ALTER TABLE waitlist ADD COLUMN IF NOT EXISTS mobile_no TEXT;`);
+    await client.query(`ALTER TABLE waitlist DROP COLUMN IF EXISTS company_url;`);
     
     // Support Google Sign-in / Social Login
     await client.query(`ALTER TABLE users ALTER COLUMN password_hash DROP NOT NULL;`);
