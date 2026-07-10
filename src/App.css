@@ -2,14 +2,169 @@
    Layout & Page
    ===================== */
 
-/* #hello  */
-
-.page-wrapper {
+/* .page-wrapper removed */
+.page-wrapper-old {
   width: 100%;
   max-width: 440px;
 }
 
-/* =====================
+.page-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.auth-layout {
+  display: flex;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  gap: 4rem;
+  align-items: center;
+}
+
+.auth-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-content-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: var(--color-text-primary);
+}
+
+.auth-content-title span {
+  color: var(--color-accent);
+}
+
+.auth-content-subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+  max-width: 90%;
+  line-height: 1.6;
+}
+
+.auth-hero-logo {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.auth-hero-logo img {
+  max-width: 150px;
+  margin-bottom: 1rem;
+}
+
+.auth-hero-logo h3 {
+  font-size: 1.2rem;
+  letter-spacing: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.auth-hero-logo h3 span {
+  color: var(--color-accent);
+}
+
+.auth-why {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.auth-why h4 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.auth-why p {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  max-width: 80%;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.auth-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.auth-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.auth-feature-icon {
+  color: var(--color-text-primary);
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+.auth-feature-text h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  color: var(--color-text-primary);
+}
+
+.auth-feature-text p {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.auth-form-container {
+  flex: 1;
+  max-width: 480px;
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-field {
+  flex: 1;
+}
+
+@media (max-width: 860px) {
+  .auth-layout {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+  
+  .auth-content {
+    text-align: center;
+    align-items: center;
+  }
+  
+  .auth-content-subtitle {
+    max-width: 100%;
+  }
+  
+  .auth-why p {
+    max-width: 100%;
+  }
+  
+  .auth-features {
+    text-align: left;
+    width: 100%;
+    max-width: 400px;
+  }
+}
    Auth Card (Login/Signup)
    ===================== */
 

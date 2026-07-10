@@ -10,7 +10,7 @@ export default function Auth({ onAuthSuccess }) {
   // Login form state
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   // Signup form state
-  const [signupData, setSignupData] = useState({ name: '', email: '', password: '' });
+  const [signupData, setSignupData] = useState({ firstName: '', lastName: '', email: '', password: '' });
 
   const googleBtnRef = useRef(null);
 
@@ -110,7 +110,11 @@ export default function Auth({ onAuthSuccess }) {
       const res = await fetch('/api/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(signupData),
+        body: JSON.stringify({
+          name: `${signupData.firstName} ${signupData.lastName}`.trim(),
+          email: signupData.email,
+          password: signupData.password
+        }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Signup failed.');
@@ -124,10 +128,54 @@ export default function Auth({ onAuthSuccess }) {
 
   return (
     <div className="page-wrapper">
-      <div className="auth-card">
-        <div className="auth-header">
-          <span className="auth-logo"><span style={{ color: 'var(--color-accent)' }}>UP</span>SILON</span>
-          <div className="auth-tabs">
+      <div className="auth-layout">
+        
+        {/* Left Side Content */}
+        <div className="auth-content">
+          <h2 className="auth-content-title">
+            <span>Grow</span> with the<br />AKS Ecosystem
+          </h2>
+          <p className="auth-content-subtitle">
+            Access exclusive tools, resources, and a community built to accelerate your product success.
+          </p>
+
+          <div className="auth-hero-logo">
+            <svg width="120" height="80" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg" style={{ margin: '0 auto', display: 'block' }}>
+              <path d="M60 70 L60 40 M60 40 Q40 10 20 20 M60 40 Q80 10 100 20" stroke="var(--color-text-primary)" strokeWidth="3" fill="none" />
+              <path d="M55 70 L55 45 Q40 20 20 30" stroke="var(--color-accent)" strokeWidth="3" fill="none" />
+              <path d="M65 70 L65 45 Q80 20 100 30" stroke="var(--color-accent)" strokeWidth="3" fill="none" />
+            </svg>
+            <h3><span style={{ color: 'var(--color-accent)' }}>UP</span>SILON</h3>
+          </div>
+
+          <div className="auth-why">
+            <h4>Why Upsilon?</h4>
+            <p>Build faster with a modern ecosystem designed for founders, builders, and innovators.</p>
+          </div>
+
+          <div className="auth-features">
+            <div className="auth-feature">
+              <span className="auth-feature-icon">✓</span>
+              <div className="auth-feature-text">
+                <h5>Smart Collaboration</h5>
+                <p>Work seamlessly across teams.</p>
+              </div>
+            </div>
+            <div className="auth-feature">
+              <span className="auth-feature-icon">✓</span>
+              <div className="auth-feature-text">
+                <h5>Secure Platform</h5>
+                <p>Enterprise-grade security and reliability.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side Form */}
+        <div className="auth-form-container">
+          <div className="auth-card">
+            <div className="auth-header">
+              <div className="auth-tabs">
             <button
               id="tab-login"
               className={`auth-tab ${tab === TABS.LOGIN ? 'active' : ''}`}
@@ -210,18 +258,33 @@ export default function Auth({ onAuthSuccess }) {
           </form>
         ) : (
           <form className="form" onSubmit={handleSignup}>
-            <div className="form-field">
-              <label className="form-label" htmlFor="signup-name">Full name</label>
-              <input
-                id="signup-name"
-                type="text"
-                className="form-input"
-                placeholder="John Doe"
-                value={signupData.name}
-                onChange={(e) => setSignupData({ ...signupData, name: e.target.value })}
-                required
-                autoComplete="name"
-              />
+            <div className="form-row">
+              <div className="form-field">
+                <label className="form-label" htmlFor="signup-firstname">FIRST NAME</label>
+                <input
+                  id="signup-firstname"
+                  type="text"
+                  className="form-input"
+                  placeholder="First"
+                  value={signupData.firstName}
+                  onChange={(e) => setSignupData({ ...signupData, firstName: e.target.value })}
+                  required
+                  autoComplete="given-name"
+                />
+              </div>
+              <div className="form-field">
+                <label className="form-label" htmlFor="signup-lastname">LAST NAME</label>
+                <input
+                  id="signup-lastname"
+                  type="text"
+                  className="form-input"
+                  placeholder="Last"
+                  value={signupData.lastName}
+                  onChange={(e) => setSignupData({ ...signupData, lastName: e.target.value })}
+                  required
+                  autoComplete="family-name"
+                />
+              </div>
             </div>
             <div className="form-field">
               <label className="form-label" htmlFor="signup-email">Email address</label>
@@ -255,8 +318,10 @@ export default function Auth({ onAuthSuccess }) {
             </button>
           </form>
         )}
+          </div>
+          <p className="footer-note">Upsilon &copy; {new Date().getFullYear()}</p>
+        </div>
       </div>
-      <p className="footer-note">Upsilon &copy; {new Date().getFullYear()}</p>
     </div>
   );
 }
