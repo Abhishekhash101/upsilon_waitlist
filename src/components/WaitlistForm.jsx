@@ -7,7 +7,7 @@ function hasFormChanged(original, current) {
     original.name !== current.name ||
     original.email !== current.email ||
     original.companyName !== current.companyName ||
-    original.companyUrl !== current.companyUrl ||
+    original.mobileNo !== current.mobileNo ||
     original.joinedWaitlist !== current.joinedWaitlist
   );
 }
@@ -17,7 +17,7 @@ export default function WaitlistForm({ user, token, onLogout }) {
     name: user.name || '',
     email: user.email || '',
     companyName: '',
-    companyUrl: '',
+    mobileNo: '',
     joinedWaitlist: false,
   });
 
@@ -42,7 +42,7 @@ export default function WaitlistForm({ user, token, onLogout }) {
             name: data.submission.name || '',
             email: data.submission.email || '',
             companyName: data.submission.company_name || '',
-            companyUrl: data.submission.company_url || '',
+            mobileNo: data.submission.mobile_no || '',
             joinedWaitlist: data.submission.joined_waitlist || false,
           };
           setFormData(mapped);
@@ -218,14 +218,14 @@ export default function WaitlistForm({ user, token, onLogout }) {
                 </div>
 
                 <div className="form-field">
-                  <label className="form-label" htmlFor="waitlist-company-url">Company URL / LinkedIn URL</label>
+                  <label className="form-label" htmlFor="waitlist-mobile">Mobile number</label>
                   <input
-                    id="waitlist-company-url"
-                    type="url"
-                    name="companyUrl"
+                    id="waitlist-mobile"
+                    type="tel"
+                    name="mobileNo"
                     className="form-input"
-                    placeholder="https://acme.com or https://linkedin.com/company/..."
-                    value={formData.companyUrl}
+                    placeholder="+91 98765 43210"
+                    value={formData.mobileNo}
                     onChange={handleChange}
                     required
                   />

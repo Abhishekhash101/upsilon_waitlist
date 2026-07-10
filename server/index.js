@@ -62,14 +62,14 @@ async function initDB() {
         name TEXT NOT NULL,
         email TEXT NOT NULL,
         company_name TEXT,
-        company_url TEXT,
+        mobile_no TEXT,
         joined_waitlist BOOLEAN DEFAULT TRUE,
         submitted_at TIMESTAMP DEFAULT NOW()
       );
     `);
     // Add columns if upgrading from older schema
     await client.query(`ALTER TABLE waitlist ADD COLUMN IF NOT EXISTS company_name TEXT;`);
-    await client.query(`ALTER TABLE waitlist ADD COLUMN IF NOT EXISTS company_url TEXT;`);
+    await client.query(`ALTER TABLE waitlist ADD COLUMN IF NOT EXISTS mobile_no TEXT;`);
     
     // Support Google Sign-in / Social Login
     await client.query(`ALTER TABLE users ALTER COLUMN password_hash DROP NOT NULL;`);
@@ -247,7 +247,7 @@ app.post('/api/google-login', async (req, res) => {
 app.get('/api/waitlist/me', authenticateToken, async (req, res) => {
   try {
     const result = await pool.query(
-      'SELECT name, email, company_name, company_url, joined_waitlist, submitted_at FROM waitlist WHERE user_id = $1',
+      'SELECT name, email, company_name, mobile_no, joined_waitlist, submitted_at FROM waitlist WHERE user_id = $1',
       [req.user.id]
     );
     if (result.rows.length === 0) return res.json({ submission: null });
@@ -260,7 +260,7 @@ app.get('/api/waitlist/me', authenticateToken, async (req, res) => {
 
 // POST /api/waitlist  (create — first-time only)
 app.post('/api/waitlist', authenticateToken, async (req, res) => {
-  const { name, email, joinedWaitlist, companyName, companyUrl } = req.body;
+  const { name, email, joinedWaitlist, companyName, mobileNo } = req.body;
 
   if (!name || !email)
     return res.status(400).json({ error: 'Name and email are required.' });
@@ -273,8 +273,8 @@ app.post('/api/waitlist', authenticateToken, async (req, res) => {
       return res.status(409).json({ error: 'You have already joined the waitlist. Use update instead.' });
 
     await pool.query(
-      'INSERT INTO waitlist (user_id, name, email, company_name, company_url, joined_waitlist) VALUES ($1, $2, $3, $4, $5, $6)',
-      [req.user.id, name, email.toLowerCase(), companyName || null, companyUrl || null, joinedWaitlist]
+      'INSERT INTO waitlist (user_id, name, email, company_name, mobile_no, joined_waitlist) VALUES ($1, $2, $3, $4, $5, $6)',
+      [req.user.id, name, email.toLowerCase(), companyName || null, mobileNo || null, joinedWaitlist]
     );
     res.status(201).json({ message: 'Successfully joined the waitlist!' });
   } catch (err) {
@@ -285,7 +285,7 @@ app.post('/api/waitlist', authenticateToken, async (req, res) => {
 
 // PUT /api/waitlist  (overwrite existing submission)
 app.put('/api/waitlist', authenticateToken, async (req, res) => {
-  const { name, email, joinedWaitlist, companyName, companyUrl } = req.body;
+  const { name, email, joinedWaitlist, companyName, mobileNo } = req.body;
 
   if (!name || !email)
     return res.status(400).json({ error: 'Name and email are required.' });
@@ -295,10 +295,10 @@ app.put('/api/waitlist', authenticateToken, async (req, res) => {
   try {
     const result = await pool.query(
       `UPDATE waitlist
-       SET name = $1, email = $2, company_name = $3, company_url = $4, joined_waitlist = $5, submitted_at = NOW()
+       SET name = $1, email = $2, company_name = $3, mobile_no = $4, joined_waitlist = $5, submitted_at = NOW()
        WHERE user_id = $6
        RETURNING id`,
-      [name, email.toLowerCase(), companyName || null, companyUrl || null, joinedWaitlist, req.user.id]
+      [name, email.toLowerCase(), companyName || null, mobileNo || null, joinedWaitlist, req.user.id]
     );
     if (result.rowCount === 0)
       return res.status(404).json({ error: 'No existing submission found to update.' });
@@ -333,7 +333,7 @@ app.get('/api/admin/data', authenticateAdmin, async (req, res) => {
         u.created_at,
         CASE WHEN w.id IS NOT NULL THEN true ELSE false END AS on_waitlist,
         w.company_name,
-        w.company_url,
+        w.mobile_no,
         w.submitted_at AS waitlist_submitted_at
       FROM users u
       LEFT JOIN waitlist w ON w.user_id = u.id
