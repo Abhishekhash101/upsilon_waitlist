@@ -109,7 +109,7 @@ export default function AdminDashboard({ token, onLogout }) {
                     <th>Name</th>
                     <th>Email</th>
                     <th>Company</th>
-                    <th>URL</th>
+                    <th>Phone No</th>
                     <th>Signed up</th>
                     <th>Waitlist</th>
                     <th>Submitted at</th>
@@ -123,8 +123,8 @@ export default function AdminDashboard({ token, onLogout }) {
                       <td className="cell-email">{user.email}</td>
                       <td className="cell-email">{user.company_name || <span style={{color:'var(--color-text-muted)'}}>—</span>}</td>
                       <td className="cell-email">
-                        {user.company_url
-                          ? <a href={user.company_url} target="_blank" rel="noreferrer" style={{color:'var(--color-accent)',textDecoration:'none'}}>{user.company_url.replace(/^https?:\/\//, '')}</a>
+                        {user.mobile_no
+                          ? user.mobile_no
                           : <span style={{color:'var(--color-text-muted)'}}>—</span>}
                       </td>
                       <td className="cell-date">{formatDate(user.created_at)}</td>
