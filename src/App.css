@@ -3,6 +3,11 @@
    ===================== */
 
 /* .page-wrapper removed */
+
+body{
+   padding-top: 14px;
+}
+
 .page-wrapper-old {
   width: 100%;
   max-width: 440px;
