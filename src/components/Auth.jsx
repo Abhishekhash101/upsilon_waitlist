@@ -141,8 +141,8 @@ export default function Auth({ onAuthSuccess }) {
           </p>
 
           <div className="auth-hero-logo">
-            <img src={upsilonLogo} alt="Upsilon Logo" width="120" style={{ margin: '0 auto', display: 'block' }} />
-            <h3><span style={{ color: 'var(--color-accent)' }}>UP</span>SILON</h3>
+            <img src={upsilonLogo} alt="Upsilon Logo" width="400" style={{ margin: '0 auto', display: 'block' }} />
+            
           </div>
 
           <div className="auth-why">
