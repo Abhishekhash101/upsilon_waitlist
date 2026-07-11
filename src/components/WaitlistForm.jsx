@@ -124,8 +124,7 @@ export default function WaitlistForm({ user, token, onLogout }) {
           </p>
 
           <div className="auth-hero-logo">
-            <img src={upsilonLogo} alt="Upsilon Logo" width="120" style={{ margin: '0 auto', display: 'block' }} />
-            <h3><span style={{ color: 'var(--color-accent)' }}>UP</span>SILON</h3>
+            <img src={upsilonLogo} alt="Upsilon Logo" width="400" style={{ margin: '0 auto', display: 'block' }} />
           </div>
 
           <div className="auth-why">
@@ -166,12 +165,12 @@ export default function WaitlistForm({ user, token, onLogout }) {
             {submitted ? (
               <div className="success-state">
                 <div className="success-icon">✓</div>
-                <h2>{updateMode ? 'Submission updated' : "You're on the list"}</h2>
+                <h2>{updateMode ? 'Submission updated' : "Congrats! You've joined our waitlist."}</h2>
                 <p>
                   {updateMode
                     ? 'Your waitlist details have been updated successfully.'
                     : `Thank you, ${user.name}. Your spot on the Upsilon waitlist has been confirmed.`}{' '}
-                  We&apos;ll reach out to you at <strong>{formData.email}</strong> when we&apos;re ready.
+                  Stay tuned for your fundraising, Our team will reach you out on <strong>{formData.email}</strong>.
                 </p>
               </div>
             ) : (
