@@ -170,7 +170,7 @@ export default function WaitlistForm({ user, token, onLogout }) {
                   {updateMode
                     ? 'Your waitlist details have been updated successfully.'
                     : `Thank you, ${user.name}. Your spot on the Upsilon waitlist has been confirmed.`}{' '}
-                  Stay tuned for your fundraising, Our team will reach you out on <strong>{formData.email}</strong>.
+                  Stay tuned for your fundraising! Our team will reach you out on <strong>{formData.email}</strong>.
                 </p>
               </div>
             ) : (
