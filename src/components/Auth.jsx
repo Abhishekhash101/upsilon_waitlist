@@ -142,7 +142,7 @@ window.google.accounts.id.renderButton(googleBtnRef.current, {
             <span>Grow</span> with the<br />AKS Ecosystem
           </h2>
           <p className="auth-content-subtitle">
-            Access exclusive tools, resources, and a community built to accelerate your product success.
+            Get discovered by the investors actively looking for startups like yours, before you even launch.
           </p>
 
           <div className="auth-hero-logo">
@@ -152,22 +152,29 @@ window.google.accounts.id.renderButton(googleBtnRef.current, {
 
           <div className="auth-why">
             <h4>Why Upsilon?</h4>
-            <p>Build faster with a modern ecosystem designed for founders, builders, and innovators.</p>
           </div>
 
           <div className="auth-features">
             <div className="auth-feature">
               <span className="auth-feature-icon">✓</span>
               <div className="auth-feature-text">
-                <h5>Smart Collaboration</h5>
-                <p>Work seamlessly across teams.</p>
+                <h5> Direct Investor Access</h5>
+                <p>Skip cold outreach. Get matched with VCs and angels actively sourcing deals.</p>
               </div>
             </div>
             <div className="auth-feature">
               <span className="auth-feature-icon">✓</span>
               <div className="auth-feature-text">
-                <h5>Secure Platform</h5>
-                <p>Enterprise-grade security and reliability.</p>
+                <h5>Founding Cohort Priority</h5>
+                <p>Early waitlist members get first access to intros, events, and deal flow.</p>
+              </div>
+            </div>
+            <div className="auth-features">
+            <div className="auth-feature">
+              <span className="auth-feature-icon">✓</span>
+              <div className="auth-feature-text">
+                <h5> Secure & Confidential </h5>
+                <p>Your data and traction metrics stay protected, always.</p>
               </div>
             </div>
           </div>
