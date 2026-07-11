@@ -46,13 +46,18 @@ export default function Auth({ onAuthSuccess }) {
         });
 
         if (googleBtnRef.current) {
-          window.google.accounts.id.renderButton(googleBtnRef.current, {
-            theme: 'outline',
-            size: 'large',
-            width: googleBtnRef.current.parentElement?.offsetWidth || 340,
-            text: 'continue_with',
-            shape: 'rectangular',
-          });
+          const buttonWidth = Math.min(
+  (googleBtnRef.current.parentElement?.offsetWidth || 340) - 32,
+  340
+);
+
+window.google.accounts.id.renderButton(googleBtnRef.current, {
+  theme: 'outline',
+  size: 'large',
+  width: buttonWidth,
+  text: 'continue_with',
+  shape: 'rectangular',
+});
         }
       }
     };
