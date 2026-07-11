@@ -139,15 +139,14 @@ window.google.accounts.id.renderButton(googleBtnRef.current, {
         {/* Left Side Content */}
         <div className="auth-content">
           <h2 className="auth-content-title">
-            <span>Upscale</span> with <br /><span>UP</span>SILON
+            <span>Grow</span> with the<br />AKS Ecosystem
           </h2>
           <p className="auth-content-subtitle">
             Get discovered by the investors actively looking for startups like yours, before you even launch.
           </p>
 
           <div className="auth-hero-logo">
-            <img src={upsilonLogo} alt="Upsilon Logo" width="400" style={{ margin: '0 auto', display: 'block' }} />
-            
+            <img src={upsilonLogo} alt="Upsilon Logo" width="380" style={{ margin: '0 auto', display: 'block' }} />
           </div>
 
           <div className="auth-why">
