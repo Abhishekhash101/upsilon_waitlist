@@ -139,7 +139,7 @@ window.google.accounts.id.renderButton(googleBtnRef.current, {
         {/* Left Side Content */}
         <div className="auth-content">
           <h2 className="auth-content-title">
-            <span>Grow</span> with the<br />AKS Ecosystem
+            <span>Upscale</span> with <br /><span>UP</span>SILON
           </h2>
           <p className="auth-content-subtitle">
             Get discovered by the investors actively looking for startups like yours, before you even launch.
