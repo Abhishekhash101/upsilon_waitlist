@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import upsilonLogo from '../assets/upsilon_nobackground.png';
 
 const TABS = { LOGIN: 'login', SIGNUP: 'signup' };
 
@@ -140,11 +141,7 @@ export default function Auth({ onAuthSuccess }) {
           </p>
 
           <div className="auth-hero-logo">
-            <svg width="120" height="80" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg" style={{ margin: '0 auto', display: 'block' }}>
-              <path d="M60 70 L60 40 M60 40 Q40 10 20 20 M60 40 Q80 10 100 20" stroke="var(--color-text-primary)" strokeWidth="3" fill="none" />
-              <path d="M55 70 L55 45 Q40 20 20 30" stroke="var(--color-accent)" strokeWidth="3" fill="none" />
-              <path d="M65 70 L65 45 Q80 20 100 30" stroke="var(--color-accent)" strokeWidth="3" fill="none" />
-            </svg>
+            <img src={upsilonLogo} alt="Upsilon Logo" width="120" style={{ margin: '0 auto', display: 'block' }} />
             <h3><span style={{ color: 'var(--color-accent)' }}>UP</span>SILON</h3>
           </div>
 
