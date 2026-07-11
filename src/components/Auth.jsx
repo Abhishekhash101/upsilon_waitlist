@@ -169,7 +169,7 @@ window.google.accounts.id.renderButton(googleBtnRef.current, {
                 <p>Early waitlist members get first access to intros, events, and deal flow.</p>
               </div>
             </div>
-            <div className="auth-features">
+            
             <div className="auth-feature">
               <span className="auth-feature-icon">✓</span>
               <div className="auth-feature-text">
