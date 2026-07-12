@@ -146,7 +146,7 @@ window.google.accounts.id.renderButton(googleBtnRef.current, {
           </p>
 
           <div className="auth-hero-logo">
-            <img src={upsilonLogo} alt="Upsilon Logo" width="380" style={{margin: 0 auto, display: 'block' }} />
+            <img src={upsilonLogo} alt="Upsilon Logo" width="380" style={{margin: '0 auto', display: 'block' }} />
           </div>
 
           <div className="auth-why">
