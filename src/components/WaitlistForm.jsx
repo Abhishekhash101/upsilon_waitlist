@@ -124,7 +124,7 @@ export default function WaitlistForm({ user, token, onLogout }) {
           </p>
 
           <div className="auth-hero-logo">
-            <img src={upsilonLogo} alt="Upsilon Logo" width="400" style={{ margin: 0 auto, display: 'block' }} />
+            <img src={upsilonLogo} alt="Upsilon Logo" width="400" style={{ margin: '0 auto', display: 'block' }} />
           </div>
 
           <div className="auth-why">
