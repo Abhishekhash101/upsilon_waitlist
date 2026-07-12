@@ -117,7 +117,7 @@ export default function WaitlistForm({ user, token, onLogout }) {
         {/* Left Side Content */}
         <div className="auth-content">
           <div className="auth-hero-logo">
-            <img src={upsilonLogo} alt="Upsilon Logo" width="400" style={{ margin: '0 auto', display: 'block' }} />
+            <img src={upsilonLogo} alt="Upsilon Logo" width="400" style={{ display: 'block' }} />
           </div>
           <h2 className="auth-content-title">
             <span>Grow</span> with the<br />AKS Ecosystem
