@@ -116,9 +116,6 @@ export default function WaitlistForm({ user, token, onLogout }) {
         
         {/* Left Side Content */}
         <div className="auth-content">
-          <div className="auth-hero-logo">
-            <img src={upsilonLogo} alt="Upsilon Logo" width="400" style={{ display: 'block' }} />
-          </div>
           <h2 className="auth-content-title">
             <span>Grow</span> with the<br />AKS Ecosystem
           </h2>
@@ -126,6 +123,9 @@ export default function WaitlistForm({ user, token, onLogout }) {
             Get discovered by the investors actively looking for startups like yours, before you even launch.
           </p>
 
+          <div className="auth-hero-logo">
+            <img src={upsilonLogo} alt="Upsilon Logo" width="400" style={{ margin: 0 auto, display: 'block' }} />
+          </div>
 
           <div className="auth-why">
             <h4>Why Upsilon?</h4>
